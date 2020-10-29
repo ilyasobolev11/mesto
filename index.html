@@ -8,14 +8,28 @@
 </head>
 <body class="body">
   <div class="root">
-    <header class="header">
+    <header class="header root__header">
       <a href="#" class="header__logo-link">
         <img class="header__logo" src="./images/logo.svg" alt="логотип">
       </a>
     </header>
-    <main class="content">
 
+    <main class="content root__content">
+      <section class="profile content__profile">
+        <div class="profile__user-data">
+          <img src="./images/avatar.jpg" alt="аватар пользователя" class="profile__avatar">
+          <div class="profile__column">
+            <div class="profile__row">
+              <h2 class="profile__user-name">Жак-Ив Кусто</h2>
+              <button class="profile__edit-btn" type="button" aria-label="Изменить данные пользовтеля"></button>
+            </div>
+            <p class="profile__user-status">Исследователь океана</p>
+          </div>
+        </div>
+        <button class="profile__add-btn" type="button" aria-label="Добавить место"></button>
+      </section>
     </main>
+
     <footer class="footer">
 
     </footer>
