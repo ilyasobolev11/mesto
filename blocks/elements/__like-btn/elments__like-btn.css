@@ -1,5 +1,5 @@
 .elments__like-btn {
-  width: 20px;
+  min-width: 20px;
   height: 18px;
   padding: 0;
   background-color: transparent;
@@ -8,4 +8,17 @@
   background-position: center;
   background-repeat: no-repeat;
   border: none;
+  transition: all .5s;
+}
+
+.elments__like-btn:hover {
+  opacity: .6;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.elments__like-btn:focus {
+  outline: none;
+  transform: scale(1.2);
+  background-image: url(../../../images/like-icon-red.svg);
 }

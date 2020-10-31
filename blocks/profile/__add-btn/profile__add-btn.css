@@ -10,6 +10,17 @@
   background-size: 22px 22px;
   border: 2px solid #FFF;
   border-radius: 2px;
+  transition: opacity .5s;
+}
+
+.profile__add-btn:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+.profile__add-btn:focus {
+  outline: none;
+  box-shadow: 0 0 10px #FFF;
 }
 
 @media screen and (max-width: 768px) {

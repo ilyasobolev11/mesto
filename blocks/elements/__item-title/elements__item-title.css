@@ -1,5 +1,6 @@
 .elements__item-title {
   margin: 0;
+  padding-right: 15px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
