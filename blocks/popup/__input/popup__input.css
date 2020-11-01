@@ -1,0 +1,37 @@
+.popup__input {
+  margin-bottom: 30px;
+  width: 100%;
+  display: block;
+  padding: 0 0 13px;
+  box-sizing: border-box;
+  border: 0;
+  border-bottom: 1px solid rgba(0,0,0,.2);
+  background-color: transparent;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  color: #000;
+}
+
+/*Нижняя конструкция сработает или надо каждый вендорный префикс описывать отдельно?*/
+/*.popup__input:-ms-input-placeholder,
+.popup__input:-moz-placeholder,*/
+.popup__input::placeholder {
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  color: #808080;
+}
+
+.popup__input:last-of-type {
+  margin-bottom: 48px;
+}
+
+.popup__input:focus {
+  outline: none;
+  border-bottom:  1px solid rgb(0,0,0);;
+}
