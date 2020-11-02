@@ -1,4 +1,4 @@
-.elments__like-btn {
+.elements__like-btn {
   min-width: 20px;
   height: 18px;
   padding: 0;
@@ -11,13 +11,13 @@
   transition: all .5s;
 }
 
-.elments__like-btn:hover {
+.elements__like-btn:hover {
   opacity: .6;
   transform: scale(1.2);
   cursor: pointer;
 }
 
-.elments__like-btn:focus {
+.elements__like-btn:focus {
   outline: none;
   transform: scale(1.2);
   background-image: url(../../../images/like-icon-red.svg);
