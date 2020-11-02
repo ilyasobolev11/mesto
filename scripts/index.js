@@ -5,9 +5,9 @@ const userStatusElement = profile.querySelector('.profile__user-status');
 
 const popup = document.querySelector('.popup');
 const closeButton = popup.querySelector('.popup__close-btn');
+const popupForm = popup.querySelector('.popup__form');
 const userNameInput= popup.querySelector('.popup__input_type_user-name');
 const userStatusInput = popup.querySelector('.popup__input_type_user-status');
-const submitButton = popup.querySelector('.popup__save-btn');
 
 function showPopup () {
   popup.classList.add('popup_opened');
@@ -28,4 +28,4 @@ function submitPopupForm (evt) {
 
 editButton.addEventListener('click', showPopup);
 closeButton.addEventListener('click', closePopup);
-submitButton.addEventListener('click', submitPopupForm);
+popupForm.addEventListener('submit', submitPopupForm);
