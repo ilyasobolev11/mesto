@@ -1,13 +1,13 @@
-const profile = document.querySelector('.profile');
-const editButton = profile.querySelector('.profile__edit-btn');
-const userNameElement = profile.querySelector('.profile__user-name');
-const userStatusElement = profile.querySelector('.profile__user-status');
+let profile = document.querySelector('.profile');
+let editButton = profile.querySelector('.profile__edit-btn');
+let userNameElement = profile.querySelector('.profile__user-name');
+let userStatusElement = profile.querySelector('.profile__user-status');
 
-const popup = document.querySelector('.popup');
-const closeButton = popup.querySelector('.popup__close-btn');
-const popupForm = popup.querySelector('.popup__form');
-const userNameInput= popup.querySelector('.popup__input_type_user-name');
-const userStatusInput = popup.querySelector('.popup__input_type_user-status');
+let popup = document.querySelector('.popup');
+let closeButton = popup.querySelector('.popup__close-btn');
+let popupForm = popup.querySelector('.popup__form');
+let userNameInput= popup.querySelector('.popup__input_type_user-name');
+let userStatusInput = popup.querySelector('.popup__input_type_user-status');
 
 function showPopup () {
   popup.classList.add('popup_opened');
