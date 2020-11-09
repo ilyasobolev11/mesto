@@ -24,8 +24,10 @@
 }
 
 @media screen and (max-width: 550px) {
-  .profile__edit-btn {
-    align-self: center;
+  @-moz-document url-prefix() {
+    .profile__edit-btn {
+      align-self: center;
+    }
   }
 }
 
