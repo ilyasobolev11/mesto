@@ -31,8 +31,9 @@
 
       <section class="elements">
         <ul class="elements__list">
-          <li class="elements__item">
+          <!--<li class="elements__item">
             <article>
+              <button class="elements__delete-btn" type="button" aria-label="Удалить"></button>
               <img src="./images/karachaevsk.jpg" alt="фото - Карачаевск" class="elements__item-img">
               <div class="elements__row">
                 <h2 class="elements__item-title">Карачаевск</h2>
@@ -42,6 +43,7 @@
           </li>
           <li class="elements__item">
             <article>
+              <button class="elements__delete-btn" type="button" aria-label="Удалить"></button>
               <img src="./images/elbrus.jpg" alt="фото - Гора Эльбрус" class="elements__item-img">
               <div class="elements__row">
                 <h2 class="elements__item-title">Гора Эльбрус</h2>
@@ -84,7 +86,7 @@
                 <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
               </div>
             </article>
-          </li>
+          </li>-->
         </ul>
       </section>
     </main>
@@ -104,6 +106,20 @@
         <button class="popup__close-btn" type="button" aria-label="Закрыть окно редактирования информации о пользователе"></button>
       </div>
     </div>
+
+    <!--что делать с alt?-->
+    <template id="card-template">
+      <li class="elements__item">
+        <article>
+          <button class="elements__delete-btn" type="button" aria-label="Удалить"></button>
+          <img class="elements__item-img">
+          <div class="elements__row">
+            <h2 class="elements__item-title"></h2>
+            <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
+          </div>
+        </article>
+      </li>
+    </template>
   </div>
 
   <script src="./scripts/index.js"></script>

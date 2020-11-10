@@ -1,25 +1,27 @@
-.elements__like-btn {
-  min-width: 20px;
-  height: 18px;
+.elements__delete-btn {
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  width: 18px;
+  height: 19px;
   padding: 0;
   background-color: transparent;
-  background-image: url(../../../images/like-icon.svg);
-  background-size: 20px 18px;
+  background-image: url(../../../images/delete-icon.svg);
+  background-size: 18px 19px;
   background-position: center;
   background-repeat: no-repeat;
   border: none;
   transition: all .5s;
 }
 
-.elements__like-btn:hover {
+.elements__delete-btn:hover {
   opacity: .6;
   transform: scale(1.2);
   cursor: pointer;
 }
 
-.elements__like-btn:focus {
+.elements__delete-btn:focus {
   outline: none;
   opacity: .6;
   transform: scale(1.2);
-
 }
