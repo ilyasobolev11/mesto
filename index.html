@@ -30,64 +30,7 @@
       </section>
 
       <section class="elements">
-        <ul class="elements__list">
-          <!--<li class="elements__item">
-            <article>
-              <button class="elements__delete-btn" type="button" aria-label="Удалить"></button>
-              <img src="./images/karachaevsk.jpg" alt="фото - Карачаевск" class="elements__item-img">
-              <div class="elements__row">
-                <h2 class="elements__item-title">Карачаевск</h2>
-                <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
-              </div>
-            </article>
-          </li>
-          <li class="elements__item">
-            <article>
-              <button class="elements__delete-btn" type="button" aria-label="Удалить"></button>
-              <img src="./images/elbrus.jpg" alt="фото - Гора Эльбрус" class="elements__item-img">
-              <div class="elements__row">
-                <h2 class="elements__item-title">Гора Эльбрус</h2>
-                <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
-              </div>
-            </article>
-          </li>
-          <li class="elements__item">
-            <article>
-              <img src="./images/dombay.jpg" alt="фото - Домбай" class="elements__item-img">
-              <div class="elements__row">
-                <h2 class="elements__item-title">Домбай</h2>
-                <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
-              </div>
-            </article>
-          </li>
-          <li class="elements__item">
-            <article>
-              <img src="./images/putorana_plateau.jpg" alt="фото - Плато Путорана" class="elements__item-img">
-              <div class="elements__row">
-                <h2 class="elements__item-title">Плато Путорана</h2>
-                <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
-              </div>
-            </article>
-          </li>
-          <li class="elements__item">
-            <article>
-              <img src="./images/kamchatka.jpg" alt="фото - Камчатская тундра" class="elements__item-img">
-              <div class="elements__row">
-                <h2 class="elements__item-title">Камчатская тундра</h2>
-                <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
-              </div>
-            </article>
-          </li>
-          <li class="elements__item">
-            <article>
-              <img src="./images/charsky_sands.jpg" alt="фото - Чарские пески" class="elements__item-img">
-              <div class="elements__row">
-                <h2 class="elements__item-title">Чарские пески</h2>
-                <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
-              </div>
-            </article>
-          </li>-->
-        </ul>
+        <ul class="elements__list"></ul>
       </section>
     </main>
 
@@ -95,19 +38,19 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
+    <!--пробовал через templete, после реализации вернул обратно к спрятанному блоку-->
     <div class="popup">
       <div class="popup__inner">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="popupForm">
-          <input class="popup__input popup__input_type_user-name" type="text" name="popupUsername" placeholder="Имя" required>
-          <input class="popup__input popup__input_type_user-status" type="text" name="popupStatus" placeholder="О себе" required>
-          <button class="popup__save-btn" type="submit">Сохранить</button>
+        <h2 class="popup__title"></h2>
+        <form class="popup__form">
+          <input class="popup__input" type="text" required>
+          <input class="popup__input" type="text" required>
+          <button class="popup__submit-btn" type="submit">Сохранить</button>
         </form>
-        <button class="popup__close-btn" type="button" aria-label="Закрыть окно редактирования информации о пользователе"></button>
+        <button class="popup__close-btn" type="button"></button>
       </div>
     </div>
 
-    <!--что делать с alt? TODO: изменить focus-->
     <template id="card-template">
       <li class="elements__item">
         <article>

@@ -29,24 +29,22 @@ const profile = document.querySelector('.profile');
 const editButton = profile.querySelector('.profile__edit-btn');
 const userNameElement = profile.querySelector('.profile__user-name');
 const userStatusElement = profile.querySelector('.profile__user-status');
+const addButton = profile.querySelector('.profile__add-btn');
 
 const popup = document.querySelector('.popup');
 const closeButton = popup.querySelector('.popup__close-btn');
+const popupTitle = popup.querySelector('.popup__title');
 const popupForm = popup.querySelector('.popup__form');
-const userNameInput= popup.querySelector('.popup__input_type_user-name');
-const userStatusInput = popup.querySelector('.popup__input_type_user-status');
+const popupInputs = popup.querySelectorAll('.popup__input');
+const submitButton = popup.querySelector('.popup__submit-btn');
 
 const elementsList = document.querySelector('.elements__list');
 
 const cardTemplate = document.querySelector('#card-template').content;
 
-function getCloneNode (template) {
-  const element = template.cloneNode(true);
-  return element;
-}
-
 function removeCardElement (evt) {
   evt.target.closest('.elements__item').remove();
+  //проверка на наличие элементов в контейнере
 }
 
 function toggleLikeButtonStatus (evt) {
@@ -54,16 +52,19 @@ function toggleLikeButtonStatus (evt) {
 }
 
 function createCard (name, imgLink) {
-  const cardElement = getCloneNode(cardTemplate);//ТУТ - убрал в тело функции где использую
-  const cardTitleElement = cardElement.querySelector('.elements__item-title');//ТУТ - убрал в тело функции где использую
-  const cardImageElement = cardElement.querySelector('.elements__item-img');//ТУТ - убрал в тело функции где использую
+  const cardElement = cardTemplate.cloneNode(true);
+  const cardTitleElement = cardElement.querySelector('.elements__item-title');//может обойтись без констант и обращаться на прямую?
+  const cardImageElement = cardElement.querySelector('.elements__item-img');
+  const deleteButton = cardElement.querySelector('.elements__delete-btn');
+  const likeButton = cardElement.querySelector('.elements__like-btn');
 
   cardTitleElement.textContent = name;
   cardImageElement.src = imgLink;
   cardImageElement.alt = `Фото - ${name}`;
 
-  cardElement.querySelector('.elements__delete-btn').addEventListener('click', removeCardElement);
-  cardElement.querySelector('.elements__like-btn').addEventListener('click', toggleLikeButtonStatus);
+  deleteButton.addEventListener('click', removeCardElement);
+  likeButton.addEventListener('click', toggleLikeButtonStatus);
+  likeButton.addEventListener('mousedown', evt => evt.preventDefault());//отмена focus при нажатии
 
   return cardElement;
 }
@@ -76,25 +77,75 @@ function renderInitialCards () {
   initialCards.forEach(item => addCardInContainer(createCard(item.name, item.link)));
 }
 
-function showPopup () {
+function showPopup() {
   popup.classList.add('popup_opened');
-  userNameInput.value = userNameElement.textContent;
-  userStatusInput.value = userStatusElement.textContent;
 }
 
 function closePopup () {
   popup.classList.remove('popup_opened');
+
+  if (popupForm.name === 'editProfileForm') {
+    popupForm.removeEventListener('submit', submitEditProfileForm);
+    popupForm.reset();
+    popupForm.removeAttribute('name');
+  }
+  else if (popupForm.name === 'createNewCardForm') {
+    popupForm.removeEventListener('submit', submitCreateNewCardForm);
+    popupForm.reset();
+    popupForm.removeAttribute('name');
+  }
 }
 
-function submitPopupForm (evt) {
+function submitEditProfileForm (evt) {
   evt.preventDefault();
-  userNameElement.textContent = userNameInput.value;
-  userStatusElement.textContent = userStatusInput.value;
+  userNameElement.textContent = popupInputs[0].value;
+  userStatusElement.textContent = popupInputs[1].value;
   closePopup();
 }
 
-editButton.addEventListener('click', showPopup);
+function submitCreateNewCardForm (evt) {
+  evt.preventDefault();
+  addCardInContainer(createCard(popupInputs[0].value, popupInputs[1].value));
+  closePopup();
+}
+
+function showEditProfilePopup () {
+  popupTitle.textContent = 'Редактировать профиль';
+  popupForm.name = 'editProfileForm';
+  popupInputs[0].placeholder = 'Имя';
+  popupInputs[0].name = 'popupUserName';
+  popupInputs[0].value = userNameElement.textContent;
+  popupInputs[1].type = 'text';
+  popupInputs[1].placeholder = 'О себе';
+  popupInputs[1].name = 'popupStatus';
+  popupInputs[1].value = userStatusElement.textContent;
+  submitButton.textContent = 'Сохранить';
+  closeButton.ariaLabel = 'Закрыть окно редактирования информации о пользователе';
+
+  popupForm.addEventListener('submit', submitEditProfileForm);
+
+  showPopup();
+}
+
+function showCreateNewCardPopup () {
+  popupTitle.textContent = 'Новое место';
+  popupForm.name = 'createNewCardForm';
+  popupInputs[0].placeholder = 'Название';
+  popupInputs[0].name = 'popupPlaceName';
+  popupInputs[1].type = 'url';
+  popupInputs[1].placeholder = 'Ссылка на картинку';
+  popupInputs[1].name = 'popupImgLink';
+  submitButton.textContent = 'Создать';
+  closeButton.ariaLabel = 'Закрыть окно создания нового места';
+
+  popupForm.addEventListener('submit', submitCreateNewCardForm);
+
+  showPopup();
+}
+
+editButton.addEventListener('click', showEditProfilePopup);
+addButton.addEventListener('click', showCreateNewCardPopup);
 closeButton.addEventListener('click', closePopup);
-popupForm.addEventListener('submit', submitPopupForm);
+closeButton.addEventListener('mousedown', evt => evt.preventDefault());
 
 renderInitialCards();
