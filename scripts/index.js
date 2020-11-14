@@ -38,13 +38,36 @@ const popupForm = popup.querySelector('.popup__form');
 const popupInputs = popup.querySelectorAll('.popup__input');
 const submitButton = popup.querySelector('.popup__submit-btn');
 
+const textNotification = document.querySelector('.elements__text-notification');
 const elementsList = document.querySelector('.elements__list');
+let elementsListWasEmpty = true;
 
-const cardTemplate = document.querySelector('#card-template').content;
+const cardTemplate = document.querySelector('#card-template').content.querySelector('.elements__item');//чтоб не превращал разрывы строк в текстовые узлы
+
+//Проверка - показывать ли сообщение "Нет добавленных мест", организаванная одной функцией.
+//Позже разбил ее на части, поместив куски проверки в removeCardElement и addCardInContainer, которые будут вызывать toggleDisplayTextNotification.
+//Хотел бы узнать, какой из вариантов логичнее/читабельнее или оба ужасны?
+
+/*function check () {
+  if (elementsList.hasChildNodes() && elementsListWasEmpty){
+    textNotification.classList.add('elements__text-notification_hidden');
+    elementsListWasEmpty = false;
+  } else if (!elementsList.hasChildNodes()) {
+    textNotification.classList.remove('elements__text-notification_hidden');
+    elementsListWasEmpty = true;
+  }
+}*/
+
+function toggleDisplayTextNotification () {
+  textNotification.classList.toggle('elements__text-notification_hidden');
+}
 
 function removeCardElement (evt) {
   evt.target.closest('.elements__item').remove();
-  //проверка на наличие элементов в контейнере
+  if (!elementsList.hasChildNodes()) {
+    toggleDisplayTextNotification();
+    elementsListWasEmpty = true;
+  }
 }
 
 function toggleLikeButtonStatus (evt) {
@@ -53,7 +76,7 @@ function toggleLikeButtonStatus (evt) {
 
 function createCard (name, imgLink) {
   const cardElement = cardTemplate.cloneNode(true);
-  const cardTitleElement = cardElement.querySelector('.elements__item-title');//может обойтись без констант и обращаться на прямую?
+  const cardTitleElement = cardElement.querySelector('.elements__item-title');//может обойтись без констант и обращаться на прямую? Будет ли так экономичней?
   const cardImageElement = cardElement.querySelector('.elements__item-img');
   const deleteButton = cardElement.querySelector('.elements__delete-btn');
   const likeButton = cardElement.querySelector('.elements__like-btn');
@@ -71,6 +94,10 @@ function createCard (name, imgLink) {
 
 function addCardInContainer (cardElement) {
   elementsList.prepend(cardElement);
+  if (elementsListWasEmpty) {
+    toggleDisplayTextNotification();
+    elementsListWasEmpty = false;
+  }
 }
 
 function renderInitialCards () {
