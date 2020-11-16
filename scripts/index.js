@@ -76,7 +76,7 @@ function removeCardElement (evt) {
 
 function createCard (name, imgLink) {
   const cardElement = cardTemplate.cloneNode(true);
-  const cardTitleElement = cardElement.querySelector('.elements__item-title');//может обойтись без констант и обращаться на прямую? Будет ли так экономичней?
+  const cardTitleElement = cardElement.querySelector('.elements__item-title');
   const cardImageElement = cardElement.querySelector('.elements__item-img');
   const deleteButton = cardElement.querySelector('.elements__delete-btn');
   const likeButton = cardElement.querySelector('.elements__like-btn');
@@ -87,7 +87,7 @@ function createCard (name, imgLink) {
 
   deleteButton.addEventListener('click', removeCardElement);
   likeButton.addEventListener('click', toggleLikeButtonStatus);
-  likeButton.addEventListener('mousedown', evt => evt.preventDefault());//отмена focus при нажатии
+  likeButton.addEventListener('mousedown', evt => evt.preventDefault());
   cardImageElement.addEventListener('click', () => {
     fillZoomImgPopup(name, imgLink);
     showPopup(popupZoomImg);
