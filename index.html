@@ -29,7 +29,7 @@
         <button class="profile__add-btn" type="button" aria-label="Добавить место"></button>
       </section>
 
-      <section class="elements"><!--надо ли переносить классы в отдельный блок-->
+      <section class="elements">
         <p class="elements__text-notification">Нет добавленных мест</p>
         <ul class="elements__list"></ul>
       </section>
@@ -39,26 +39,36 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <!--пробовал через templete, после реализации непонравилось, вернул обратно к спрятанному блоку-->
-    <!--popup заполняется динамически-->
-    <div class="popup popup_type_forms-template">
+    <div class="popup popup_type_edit-profile">
       <div class="popup__form-container">
-        <h2 class="popup__title"></h2>
-        <form class="popup__form">
-          <input class="popup__input" type="text" required>
-          <input class="popup__input" type="text" required>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form" name="editProfileForm">
+          <input class="popup__input popup__input_type_user-name" name="userName" type="text" placeholder="Имя" required>
+          <input class="popup__input popup__input_type_status" name="status" type="text" placeholder="О себе" required>
           <button class="popup__submit-btn" type="submit">Сохранить</button>
         </form>
-        <button class="popup__close-btn" type="button"></button>
+        <button class="popup__close-btn" type="button" aria-label="Закрыть окно редактирования информации о пользователе"></button>
+      </div>
+    </div>
+
+    <div class="popup popup_type_create-card">
+      <div class="popup__form-container">
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form" name="createCardForm">
+          <input class="popup__input popup__input_type_place-name" name="placeName" type="text" placeholder="Название" required>
+          <input class="popup__input popup__input_type_img-link" name="imgLink" type="url" placeholder="Ссылка на картинку" required>
+          <button class="popup__submit-btn" type="submit">Создать</button>
+        </form>
+        <button class="popup__close-btn" type="button" aria-label="Закрыть окно создания нового места"></button>
       </div>
     </div>
 
     <div class="popup popup_type_zoom-img">
-      <figure class="popup__img-container">
-        <img class="popup__img" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg">
-        <figcaption class="popup__img-caption">Фото Фото</figcaption>
+      <div class="popup__img-container">
+        <img class="popup__img" src="#" alt="#">
+        <p class="popup__img-caption"></p>
         <button class="popup__close-btn" type="button" aria-label="Закрыть окно просмотра фотографии"></button>
-      </figure>
+      </div>
     </div>
 
     <template id="card-template">

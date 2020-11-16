@@ -1,6 +1,6 @@
 .elements__text-notification {
   margin: 0;
-  padding-top: 70px;
+  padding: 70px 0;
   text-align: center;
   font-weight: 500;
   font-style: normal;
@@ -18,7 +18,7 @@
 
 @media screen and (max-width: 550px) {
   .elements__text-notification {
-    font-size: 24px;
+    font-size: 22px;
     line-height: 1.1;
   }
 }
