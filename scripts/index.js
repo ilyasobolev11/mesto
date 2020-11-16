@@ -25,21 +25,21 @@ const zoomImgCloseButton = popupZoomImg.querySelector('.popup__close-btn');
 const imgElement = popupZoomImg.querySelector('.popup__img');
 const impCaptionElement = popupZoomImg.querySelector('.popup__img-caption');
 
-const cardTemplate = document.querySelector('#card-template').content.querySelector('.elements__item');//чтоб не превращал разрывы строк в текстовые узлы
+const cardTemplate = document.querySelector('#card-template').content.querySelector('.elements__item');
 
-//Проверка - показывать ли сообщение "Нет добавленных мест", организаванная одной функцией.
-//Позже разбил ее на части, поместив куски проверки в removeCardElement и addCardInContainer, которые будут вызывать toggleDisplayTextNotification.
-//Хотел бы узнать, какой из вариантов логичнее/читабельнее или оба не очень?
+function toggleDisplayTextNotification () {
+  textNotificationElement.classList.toggle('elements__text-notification_hidden');
+}
 
-/*function check () {
+function checkElementListContent() {
   if (elementsList.hasChildNodes() && elementsListWasEmpty){
-    textNotificationElement.classList.add('elements__text-notification_hidden');
+    toggleDisplayTextNotification();
     elementsListWasEmpty = false;
   } else if (!elementsList.hasChildNodes()) {
-    textNotificationElement.classList.remove('elements__text-notification_hidden');
+    toggleDisplayTextNotification();
     elementsListWasEmpty = true;
   }
-}*/
+}
 
 function showPopup(popupType) {
   popupType.classList.add('popup_opened');
@@ -60,28 +60,18 @@ function fillZoomImgPopup(name, imgLink) {
   impCaptionElement.textContent = name;
 }
 
-function toggleDisplayTextNotification () {
-  textNotificationElement.classList.toggle('elements__text-notification_hidden');
-}
-
 function toggleLikeButtonStatus (evt) {
   evt.target.classList.toggle('elements__like-btn_active');
 }
 
 function addCardInContainer (cardElement) {
   elementsList.prepend(cardElement);
-  if (elementsListWasEmpty) {
-    toggleDisplayTextNotification();
-    elementsListWasEmpty = false;
-  }
+  checkElementListContent();
 }
 
 function removeCardElement (evt) {
   evt.target.closest('.elements__item').remove();
-  if (!elementsList.hasChildNodes()) {
-    toggleDisplayTextNotification();
-    elementsListWasEmpty = true;
-  }
+  checkElementListContent();
 }
 
 function createCard (name, imgLink) {
