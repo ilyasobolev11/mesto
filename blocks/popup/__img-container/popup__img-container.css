@@ -1,0 +1,5 @@
+.popup__img-container {
+  margin: 0;
+  min-width: calc(320px - 40px * 2);
+  position: relative;
+}

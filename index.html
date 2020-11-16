@@ -21,7 +21,7 @@
           <div class="profile__column">
             <div class="profile__row">
               <h1 class="profile__user-name">Жак-Ив Кусто</h1>
-              <button class="profile__edit-btn" type="button" aria-label="Изменить данные пользовтеля"></button><!--кнопку починил (добавил ей display: flex), но как это работает, не разобрался-->
+              <button class="profile__edit-btn" type="button" aria-label="Изменить данные пользовтеля"></button>
             </div>
             <p class="profile__user-status">Исследователь океана</p>
           </div>
@@ -30,62 +30,8 @@
       </section>
 
       <section class="elements">
-        <ul class="elements__list">
-          <li class="elements__item">
-            <article>
-              <img src="./images/karachaevsk.jpg" alt="фото - Карачаевск" class="elements__item-img">
-              <div class="elements__row">
-                <h2 class="elements__item-title">Карачаевск</h2>
-                <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
-              </div>
-            </article>
-          </li>
-          <li class="elements__item">
-            <article>
-              <img src="./images/elbrus.jpg" alt="фото - Гора Эльбрус" class="elements__item-img">
-              <div class="elements__row">
-                <h2 class="elements__item-title">Гора Эльбрус</h2>
-                <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
-              </div>
-            </article>
-          </li>
-          <li class="elements__item">
-            <article>
-              <img src="./images/dombay.jpg" alt="фото - Домбай" class="elements__item-img">
-              <div class="elements__row">
-                <h2 class="elements__item-title">Домбай</h2>
-                <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
-              </div>
-            </article>
-          </li>
-          <li class="elements__item">
-            <article>
-              <img src="./images/putorana_plateau.jpg" alt="фото - Плато Путорана" class="elements__item-img">
-              <div class="elements__row">
-                <h2 class="elements__item-title">Плато Путорана</h2>
-                <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
-              </div>
-            </article>
-          </li>
-          <li class="elements__item">
-            <article>
-              <img src="./images/kamchatka.jpg" alt="фото - Камчатская тундра" class="elements__item-img">
-              <div class="elements__row">
-                <h2 class="elements__item-title">Камчатская тундра</h2>
-                <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
-              </div>
-            </article>
-          </li>
-          <li class="elements__item">
-            <article>
-              <img src="./images/charsky_sands.jpg" alt="фото - Чарские пески" class="elements__item-img">
-              <div class="elements__row">
-                <h2 class="elements__item-title">Чарские пески</h2>
-                <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
-              </div>
-            </article>
-          </li>
-        </ul>
+        <p class="elements__text-notification">Нет добавленных мест</p>
+        <ul class="elements__list"></ul>
       </section>
     </main>
 
@@ -93,17 +39,50 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
-      <div class="popup__inner">
+    <div class="popup popup_type_edit-profile">
+      <div class="popup__form-container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="popupForm">
-          <input class="popup__input popup__input_type_user-name" type="text" name="popupUsername" placeholder="Имя" required>
-          <input class="popup__input popup__input_type_user-status" type="text" name="popupStatus" placeholder="О себе" required>
-          <button class="popup__save-btn" type="submit">Сохранить</button>
+        <form class="popup__form" name="editProfileForm">
+          <input class="popup__input popup__input_type_user-name" name="userName" type="text" placeholder="Имя" required>
+          <input class="popup__input popup__input_type_status" name="status" type="text" placeholder="О себе" required>
+          <button class="popup__submit-btn" type="submit">Сохранить</button>
         </form>
         <button class="popup__close-btn" type="button" aria-label="Закрыть окно редактирования информации о пользователе"></button>
       </div>
     </div>
+
+    <div class="popup popup_type_create-card">
+      <div class="popup__form-container">
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form" name="createCardForm">
+          <input class="popup__input popup__input_type_place-name" name="placeName" type="text" placeholder="Название" required>
+          <input class="popup__input popup__input_type_img-link" name="imgLink" type="url" placeholder="Ссылка на картинку" required>
+          <button class="popup__submit-btn" type="submit">Создать</button>
+        </form>
+        <button class="popup__close-btn" type="button" aria-label="Закрыть окно создания нового места"></button>
+      </div>
+    </div>
+
+    <div class="popup popup_type_zoom-img">
+      <div class="popup__img-container">
+        <img class="popup__img" src="#" alt="#">
+        <p class="popup__img-caption"></p>
+        <button class="popup__close-btn" type="button" aria-label="Закрыть окно просмотра фотографии"></button>
+      </div>
+    </div>
+
+    <template id="card-template">
+      <li class="elements__item">
+        <article>
+          <button class="elements__delete-btn" type="button" aria-label="Удалить"></button>
+          <img class="elements__item-img">
+          <div class="elements__row">
+            <h2 class="elements__item-title"></h2>
+            <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
+          </div>
+        </article>
+      </li>
+    </template>
   </div>
 
   <script src="./scripts/index.js"></script>

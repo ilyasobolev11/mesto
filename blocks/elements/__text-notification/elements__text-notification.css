@@ -1,0 +1,24 @@
+.elements__text-notification {
+  margin: 0;
+  padding: 70px 0;
+  text-align: center;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 38px;
+  line-height: 1.2;
+  color: #545454;
+}
+
+@media screen and (max-width: 768px) {
+  .elements__text-notification {
+    font-size: 30px;
+    line-height: 1.1;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .elements__text-notification {
+    font-size: 22px;
+    line-height: 1.1;
+  }
+}

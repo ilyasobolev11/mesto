@@ -6,3 +6,7 @@
   object-fit: cover;
   object-position: center;
 }
+
+.elements__item-img {
+  cursor: pointer;
+}
