@@ -31,12 +31,17 @@ const userNameElement = profile.querySelector('.profile__user-name');
 const userStatusElement = profile.querySelector('.profile__user-status');
 const addButton = profile.querySelector('.profile__add-btn');
 
-const popup = document.querySelector('.popup');
-const closeButton = popup.querySelector('.popup__close-btn');
+const popup = document.querySelector('.popup_type_forms-template');
 const popupTitle = popup.querySelector('.popup__title');
 const popupForm = popup.querySelector('.popup__form');
 const popupInputs = popup.querySelectorAll('.popup__input');
 const submitButton = popup.querySelector('.popup__submit-btn');
+const popupCloseButton = popup.querySelector('.popup__close-btn');
+
+const popupZoomImg = document.querySelector('.popup_type_zoom-img');
+const popupImg = popupZoomImg.querySelector('.popup__img');
+const popupImpCaption  = popupZoomImg.querySelector('.popup__img-caption');
+const popupZoomImgCloseButton = popupZoomImg.querySelector('.popup__close-btn');
 
 const textNotification = document.querySelector('.elements__text-notification');
 const elementsList = document.querySelector('.elements__list');
@@ -46,7 +51,7 @@ const cardTemplate = document.querySelector('#card-template').content.querySelec
 
 //Проверка - показывать ли сообщение "Нет добавленных мест", организаванная одной функцией.
 //Позже разбил ее на части, поместив куски проверки в removeCardElement и addCardInContainer, которые будут вызывать toggleDisplayTextNotification.
-//Хотел бы узнать, какой из вариантов логичнее/читабельнее или оба ужасны?
+//Хотел бы узнать, какой из вариантов логичнее/читабельнее или оба не очень?
 
 /*function check () {
   if (elementsList.hasChildNodes() && elementsListWasEmpty){
@@ -86,6 +91,7 @@ function createCard (name, imgLink) {
   cardImageElement.alt = `Фото - ${name}`;
 
   deleteButton.addEventListener('click', removeCardElement);
+  cardImageElement.addEventListener('click', () => showZoomImgPopup(name, imgLink));
   likeButton.addEventListener('click', toggleLikeButtonStatus);
   likeButton.addEventListener('mousedown', evt => evt.preventDefault());//отмена focus при нажатии
 
@@ -104,13 +110,11 @@ function renderInitialCards () {
   initialCards.forEach(item => addCardInContainer(createCard(item.name, item.link)));
 }
 
-function showPopup() {
-  popup.classList.add('popup_opened');
+function showPopup(popupType) {
+  popupType.classList.add('popup_opened');
 }
 
-function closePopup () {
-  popup.classList.remove('popup_opened');
-
+function resetPopupForm () {
   if (popupForm.name === 'editProfileForm') {
     popupForm.removeEventListener('submit', submitEditProfileForm);
     popupForm.reset();
@@ -123,17 +127,24 @@ function closePopup () {
   }
 }
 
+function closePopup (popupType) {
+  popupType.classList.remove('popup_opened');
+  if (popupType.classList.contains('popup_type_forms-template')) {
+    resetPopupForm();
+  }
+}
+
 function submitEditProfileForm (evt) {
   evt.preventDefault();
   userNameElement.textContent = popupInputs[0].value;
   userStatusElement.textContent = popupInputs[1].value;
-  closePopup();
+  closePopup(popup);
 }
 
 function submitCreateNewCardForm (evt) {
   evt.preventDefault();
   addCardInContainer(createCard(popupInputs[0].value, popupInputs[1].value));
-  closePopup();
+  closePopup(popup);
 }
 
 function showEditProfilePopup () {
@@ -147,11 +158,11 @@ function showEditProfilePopup () {
   popupInputs[1].name = 'popupStatus';
   popupInputs[1].value = userStatusElement.textContent;
   submitButton.textContent = 'Сохранить';
-  closeButton.ariaLabel = 'Закрыть окно редактирования информации о пользователе';
+  popupCloseButton.ariaLabel = 'Закрыть окно редактирования информации о пользователе';
 
   popupForm.addEventListener('submit', submitEditProfileForm);
 
-  showPopup();
+  showPopup(popup);
 }
 
 function showCreateNewCardPopup () {
@@ -163,16 +174,31 @@ function showCreateNewCardPopup () {
   popupInputs[1].placeholder = 'Ссылка на картинку';
   popupInputs[1].name = 'popupImgLink';
   submitButton.textContent = 'Создать';
-  closeButton.ariaLabel = 'Закрыть окно создания нового места';
+  popupCloseButton.ariaLabel = 'Закрыть окно создания нового места';
 
   popupForm.addEventListener('submit', submitCreateNewCardForm);
 
-  showPopup();
+  showPopup(popup);
+}
+
+function showZoomImgPopup(name, imgLink) {
+  popupImg.src = imgLink;
+  popupImg.alt = `Фото - ${name}`;
+  popupImpCaption.textContent = name;
+
+  showPopup(popupZoomImg);
 }
 
 editButton.addEventListener('click', showEditProfilePopup);
+editButton.addEventListener('mousedown', evt => evt.preventDefault());
+
 addButton.addEventListener('click', showCreateNewCardPopup);
-closeButton.addEventListener('click', closePopup);
-closeButton.addEventListener('mousedown', evt => evt.preventDefault());
+addButton.addEventListener('mousedown', evt => evt.preventDefault());
+
+popupCloseButton.addEventListener('click', () => closePopup(popup));
+popupCloseButton.addEventListener('mousedown', evt => evt.preventDefault());
+
+popupZoomImgCloseButton.addEventListener('click', () => closePopup(popupZoomImg));
+popupZoomImgCloseButton.addEventListener('mousedown', evt => evt.preventDefault());
 
 renderInitialCards();

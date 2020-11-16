@@ -35,3 +35,20 @@
   outline: none;
   border-bottom:  1px solid rgb(0,0,0);
 }
+
+@media screen and (max-width: 450px) {
+  .popup__input {
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.25;
+  }
+
+  .popup__input::placeholder {
+    font-size: 12px;
+    line-height: 1.25;
+  }
+
+  .popup__input:last-of-type {
+    margin-bottom: 36px;
+  }
+}

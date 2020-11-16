@@ -9,7 +9,7 @@
   background-image: url(../../../images/close-icon.svg);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 50px 50px;
+  background-size: 48px 48px;
   border: 0;
   transition: opacity .5s;
 }
@@ -24,12 +24,12 @@
   outline: 2px solid #FFF;
 }
 
-@media screen and (max-width: 515px) {
+@media screen and (max-width: 470px) {
   .popup__close-btn {
-    top: -40px;
-    right: 0;
+    top: -24px;
+    right: -26px;
     width: 26px;
     height: 26px;
-    background-size: 35px 35px;
+    background-size: 38px 38px;
   }
 }

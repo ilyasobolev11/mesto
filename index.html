@@ -40,8 +40,9 @@
     </footer>
 
     <!--пробовал через templete, после реализации непонравилось, вернул обратно к спрятанному блоку-->
-    <div class="popup">
-      <div class="popup__inner">
+    <!--popup заполняется динамически-->
+    <div class="popup popup_type_forms-template">
+      <div class="popup__form-container">
         <h2 class="popup__title"></h2>
         <form class="popup__form">
           <input class="popup__input" type="text" required>
@@ -50,6 +51,14 @@
         </form>
         <button class="popup__close-btn" type="button"></button>
       </div>
+    </div>
+
+    <div class="popup popup_type_zoom-img">
+      <figure class="popup__img-container">
+        <img class="popup__img" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg">
+        <figcaption class="popup__img-caption">Фото Фото</figcaption>
+        <button class="popup__close-btn" type="button" aria-label="Закрыть окно просмотра фотографии"></button>
+      </figure>
     </div>
 
     <template id="card-template">
