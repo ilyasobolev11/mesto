@@ -7,6 +7,6 @@
   object-position: center;
 }
 
-.elements__item-img {
+.elements__item-img:hover {
   cursor: pointer;
 }
