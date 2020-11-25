@@ -39,12 +39,19 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
+    <!-- TODO: убрать повторение уникального идентификатора поля -->
     <div class="popup popup_type_edit-profile">
       <div class="popup__form-container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="editProfileForm">
-          <input class="popup__input popup__input_type_user-name" name="userName" type="text" placeholder="Имя" required>
-          <input class="popup__input popup__input_type_status" name="status" type="text" placeholder="О себе" required>
+        <form class="popup__form" name="editProfileForm" novalidate>
+          <label for="" class="popup__field">
+            <input class="popup__input popup__input_type_user-name" id="username-input" name="userName" type="text" placeholder="Имя" minlength="2" maxlength="40" required>
+            <span class="popup__input-error" id="username-input-error"></span>
+          </label>
+          <label for="" class="popup__field">
+            <input class="popup__input popup__input_type_status" id="status-input" name="status" type="text" placeholder="О себе" minlength="2" maxlength="200" required>
+            <span class="popup__input-error" id="status-input-error"></span>
+          </label>
           <button class="popup__submit-btn" type="submit">Сохранить</button>
         </form>
         <button class="popup__close-btn" type="button" aria-label="Закрыть окно редактирования информации о пользователе"></button>
@@ -55,8 +62,14 @@
       <div class="popup__form-container">
         <h2 class="popup__title">Новое место</h2>
         <form class="popup__form" name="createCardForm">
-          <input class="popup__input popup__input_type_place-name" name="placeName" type="text" placeholder="Название" required>
-          <input class="popup__input popup__input_type_img-link" name="imgLink" type="url" placeholder="Ссылка на картинку" required>
+          <label for="" class="popup__field">
+            <input class="popup__input popup__input_type_place-name" id="placeName-input" name="placeName" type="text" placeholder="Название" minlength="2" maxlength="30" required>
+            <span class="popup__input-error" id="placeName-input-error"></span>
+          </label>
+          <label for="" class="popup__field">
+            <input class="popup__input popup__input_type_img-link" id="imgLink-input" name="imgLink" type="url" placeholder="Ссылка на картинку" required>
+            <span class="popup__input-error" id="imgLink-input-error"></span>
+          </label>
           <button class="popup__submit-btn" type="submit">Создать</button>
         </form>
         <button class="popup__close-btn" type="button" aria-label="Закрыть окно создания нового места"></button>
