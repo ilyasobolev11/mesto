@@ -43,11 +43,34 @@ function checkElementListContent() {
 
 function showPopup(popupType) {
   popupType.classList.add('popup_opened');
+  document.addEventListener('keydown', handleEscPress);
+}
+
+
+function resetForm(popup) {
+  const form = popup.querySelector('.popup__form');
+  if (form) {
+    form.reset();
+  }
 }
 
 function closePopup (popupType) {
   popupType.classList.remove('popup_opened');
-  resetInputsErrors(popupType);//эту функцию надо в этом файле выше объявлять или оставить в файле с валидацией? просто скрипт с валидацией подключается последним, так что я не уверен выполняет ли функция условаие - *Функции, декларированные как function functionName() {} (function declaration), должны быть вызваны после объявления.*
+  resetForm(popupType);
+  resetInputsErrors(popupType);
+  document.removeEventListener('keydown', handleEscPress);
+}
+
+function handlePopupOverlayClick(evt) {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(evt.target);
+  }
+}
+
+function handleEscPress(evt) {
+  if (evt.key === 'Escape') {
+    closePopup(document.querySelector('.popup_opened'));
+  }
 }
 
 function fillEditProfilePopup () {
@@ -128,17 +151,19 @@ addButton.addEventListener('click', () => showPopup(popupCreateCard));
 editProfileCloseButton.addEventListener('mousedown', evt => evt.preventDefault());
 editProfileCloseButton.addEventListener('click', () => {
   closePopup(popupEditProfile);
-  editProfileForm.reset();
 });
 
 createCardCloseButton.addEventListener('mousedown', evt => evt.preventDefault());
 createCardCloseButton.addEventListener('click', () => {
   closePopup(popupCreateCard);
-  createCardForm.reset();
 });
 
 zoomImgCloseButton.addEventListener('mousedown', evt => evt.preventDefault());
 zoomImgCloseButton.addEventListener('click', () => closePopup(popupZoomImg));
+
+Array.from(document.querySelectorAll('.popup')).forEach(popup => {
+  popup.addEventListener('mousedown', handlePopupOverlayClick);
+})
 
 editProfileForm.addEventListener('submit', submitEditProfileForm);
 
