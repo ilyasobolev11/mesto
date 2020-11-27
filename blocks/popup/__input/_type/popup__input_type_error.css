@@ -1,3 +1,7 @@
 .popup__input_type_error {
   border-bottom-color: #F00;
 }
+
+.popup__input_type_error:focus {
+  border-bottom-color: #F00;
+}

@@ -1,5 +1,5 @@
 .popup__field {
-  margin-bottom: 30px;
+  margin-bottom: 35px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -11,7 +11,7 @@
 
 @media screen and (max-width: 450px) {
   .popup__field {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
   .popup__field:last-of-type {

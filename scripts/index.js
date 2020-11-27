@@ -47,6 +47,7 @@ function showPopup(popupType) {
 
 function closePopup (popupType) {
   popupType.classList.remove('popup_opened');
+  resetInputsErrors(popupType);//эту функцию надо в этом файле выше объявлять или оставить в файле с валидацией? просто скрипт с валидацией подключается последним, так что я не уверен выполняет ли функция условаие - *Функции, декларированные как function functionName() {} (function declaration), должны быть вызваны после объявления.*
 }
 
 function fillEditProfilePopup () {

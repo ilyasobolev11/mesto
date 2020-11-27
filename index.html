@@ -61,7 +61,7 @@
     <div class="popup popup_type_create-card">
       <div class="popup__form-container">
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__form" name="createCardForm">
+        <form class="popup__form" name="createCardForm" novalidate>
           <label for="" class="popup__field">
             <input class="popup__input popup__input_type_place-name" id="placeName-input" name="placeName" type="text" placeholder="Название" minlength="2" maxlength="30" required>
             <span class="popup__input-error" id="placeName-input-error"></span>
@@ -98,7 +98,8 @@
     </template>
   </div>
 
-  <script src="scripts/initial-cards.js"></script>
+  <script src="./scripts/initial-cards.js"></script>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>
