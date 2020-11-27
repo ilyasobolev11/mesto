@@ -102,20 +102,10 @@ function createCard (name, imgLink) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardTitleElement = cardElement.querySelector('.elements__item-title');
   const cardImageElement = cardElement.querySelector('.elements__item-img');
-  const deleteButton = cardElement.querySelector('.elements__delete-btn');
-  const likeButton = cardElement.querySelector('.elements__like-btn');
 
   cardTitleElement.textContent = name;
   cardImageElement.src = imgLink;
   cardImageElement.alt = `Фото - ${name}`;
-
-  deleteButton.addEventListener('click', removeCardElement);
-  likeButton.addEventListener('click', toggleLikeButtonStatus);
-  likeButton.addEventListener('mousedown', evt => evt.preventDefault());
-  cardImageElement.addEventListener('click', () => {
-    fillZoomImgPopup(name, imgLink);
-    showPopup(popupZoomImg);
-  });
 
   return cardElement;
 }
@@ -147,6 +137,23 @@ editButton.addEventListener('click', () => {
 
 addButton.addEventListener('mousedown', evt => evt.preventDefault());
 addButton.addEventListener('click', () => showPopup(popupCreateCard));
+
+elementsList.addEventListener('mousedown', evt => {
+  if (evt.target.classList.contains('elements__like-btn')) {
+    evt.preventDefault();
+  }
+});
+
+elementsList.addEventListener('click', evt => {
+  if (evt.target.classList.contains('elements__like-btn')) {
+    toggleLikeButtonStatus(evt);
+  } else if (evt.target.classList.contains('elements__delete-btn')) {
+    removeCardElement(evt);
+  } else if (evt.target.classList.contains('elements__item-img')) {
+    fillZoomImgPopup(evt.target.alt.slice(7), evt.target.src);//slice уместен или лучше подняться до родителя и от туда найти title карточки?
+    showPopup(popupZoomImg);
+  }
+});
 
 editProfileCloseButton.addEventListener('mousedown', evt => evt.preventDefault());
 editProfileCloseButton.addEventListener('click', () => {
