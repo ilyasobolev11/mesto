@@ -47,17 +47,12 @@ function showPopup(popupType) {
 }
 
 
-function resetForm(popup) {
-  const form = popup.querySelector('.popup__form');
-  if (form) {
-    form.reset();
-  }
+function resetFormInputs(popup) {
+  popup.querySelector('.popup__form').reset();
 }
 
 function closePopup (popupType) {
   popupType.classList.remove('popup_opened');
-  resetForm(popupType);
-  resetInputsErrors(popupType);
   document.removeEventListener('keydown', handleEscPress);
 }
 
@@ -102,10 +97,22 @@ function createCard (name, imgLink) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardTitleElement = cardElement.querySelector('.elements__item-title');
   const cardImageElement = cardElement.querySelector('.elements__item-img');
+  const deleteButton = cardElement.querySelector('.elements__delete-btn');
+  const likeButton = cardElement.querySelector('.elements__like-btn');
 
   cardTitleElement.textContent = name;
   cardImageElement.src = imgLink;
   cardImageElement.alt = `Фото - ${name}`;
+
+  //Раньше так и было. Просто в этом спринте поднималась тема делегирования событий, решил что стоит попрактиковаться.
+  deleteButton.addEventListener('click', removeCardElement);
+  //этот слушатель убирает эффект focus на кнопке при нажатии. если его убрать, то при нажатии на кнопку она будет выделяться до того момента, пока пользователь не кликнет в другом месте
+  //likeButton.addEventListener('mousedown', evt => evt.preventDefault());
+  likeButton.addEventListener('click', toggleLikeButtonStatus);
+  cardImageElement.addEventListener('click', () => {
+    fillZoomImgPopup(name, imgLink);
+    showPopup(popupZoomImg);
+  });
 
   return cardElement;
 }
@@ -115,60 +122,50 @@ function renderInitialCards () {
 }
 
 function submitEditProfileForm (evt) {
-  evt.preventDefault();
   userNameElement.textContent = userNameInput.value;
   userStatusElement.textContent = statusInput.value;
-  editProfileForm.reset();
   closePopup(popupEditProfile);
 }
 
 function submitCreateCardForm (evt) {
-  evt.preventDefault();
   addCardInContainer(createCard(placeNameInput.value, imgLinkInput.value));
-  createCardForm.reset();
   closePopup(popupCreateCard);
 }
 
-editButton.addEventListener('mousedown', evt => evt.preventDefault());
+//вынес все операции по подготовке формы перед открытием в одну функцию
+function resetForm(popup) {
+  resetFormInputs(popup);
+  resetInputsErrors(popup);
+  disableButton(popup.querySelector(validationConfig.submitButtonSelector), validationConfig);
+}
+
+//Согласен с тем, что расставлять preventDefault() всем кнопкам в ручную было не лучшей идеей, но, по правде, я просто забыл это убрать. Как и было сказанно выше, эта функция позволяет убрать эффект focus при обычном нажатии на кнопку. Попробуйте, например, нажать на кнопку закрытия попапа, она выделится рамкой.
+// document.querySelectorAll('button').forEach(button => {
+//   button.addEventListener('mousedown', evt => evt.preventDefault());
+// })
+
 editButton.addEventListener('click', () => {
+  resetForm(popupEditProfile);
   fillEditProfilePopup();
   showPopup(popupEditProfile);
 });
 
-addButton.addEventListener('mousedown', evt => evt.preventDefault());
-addButton.addEventListener('click', () => showPopup(popupCreateCard));
-
-elementsList.addEventListener('mousedown', evt => {
-  if (evt.target.classList.contains('elements__like-btn')) {
-    evt.preventDefault();
-  }
+addButton.addEventListener('click', () => {
+  resetForm(popupCreateCard);
+  showPopup(popupCreateCard);
 });
 
-elementsList.addEventListener('click', evt => {
-  if (evt.target.classList.contains('elements__like-btn')) {
-    toggleLikeButtonStatus(evt);
-  } else if (evt.target.classList.contains('elements__delete-btn')) {
-    removeCardElement(evt);
-  } else if (evt.target.classList.contains('elements__item-img')) {
-    fillZoomImgPopup(evt.target.alt.slice(7), evt.target.src);//slice уместен или лучше подняться до родителя и от туда найти title карточки?
-    showPopup(popupZoomImg);
-  }
-});
-
-editProfileCloseButton.addEventListener('mousedown', evt => evt.preventDefault());
 editProfileCloseButton.addEventListener('click', () => {
   closePopup(popupEditProfile);
 });
 
-createCardCloseButton.addEventListener('mousedown', evt => evt.preventDefault());
 createCardCloseButton.addEventListener('click', () => {
   closePopup(popupCreateCard);
 });
 
-zoomImgCloseButton.addEventListener('mousedown', evt => evt.preventDefault());
 zoomImgCloseButton.addEventListener('click', () => closePopup(popupZoomImg));
 
-Array.from(document.querySelectorAll('.popup')).forEach(popup => {
+document.querySelectorAll('.popup').forEach(popup => {
   popup.addEventListener('mousedown', handlePopupOverlayClick);
 })
 
