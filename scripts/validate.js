@@ -32,7 +32,6 @@ function checkInputValidity(formElement, inputElement, config) {
   }
 }
 
-//вынес в функцию, чтобы блокировать кнопку при открытии попапа. Раньше после первого использования попапа, при его повторном открытии, она была активна, вплоть до того момента как сработате событие input в одном из полей
 function disableButton(button, config) {
   button.classList.add(config.disabledButtonClass);
   button.setAttribute('disabled', 'true');
@@ -43,6 +42,7 @@ function enableButton(button, config) {
   button.removeAttribute('disabled');
 }
 
+//переписать используя checkValidity()
 function hasInvalidInput(inputList) {
   return Array.from(inputList).some(inputElement => {
     return !inputElement.validity.valid;

@@ -104,10 +104,8 @@ function createCard (name, imgLink) {
   cardImageElement.src = imgLink;
   cardImageElement.alt = `Фото - ${name}`;
 
-  //Раньше так и было. Просто в этом спринте поднималась тема делегирования событий, решил что стоит попрактиковаться.
   deleteButton.addEventListener('click', removeCardElement);
-  //этот слушатель убирает эффект focus на кнопке при нажатии. если его убрать, то при нажатии на кнопку она будет выделяться до того момента, пока пользователь не кликнет в другом месте
-  //likeButton.addEventListener('mousedown', evt => evt.preventDefault());
+  likeButton.addEventListener('mousedown', evt => evt.preventDefault());
   likeButton.addEventListener('click', toggleLikeButtonStatus);
   cardImageElement.addEventListener('click', () => {
     fillZoomImgPopup(name, imgLink);
@@ -122,27 +120,27 @@ function renderInitialCards () {
 }
 
 function submitEditProfileForm (evt) {
+  evt.preventDefault();
   userNameElement.textContent = userNameInput.value;
   userStatusElement.textContent = statusInput.value;
   closePopup(popupEditProfile);
 }
 
 function submitCreateCardForm (evt) {
+  evt.preventDefault();
   addCardInContainer(createCard(placeNameInput.value, imgLinkInput.value));
   closePopup(popupCreateCard);
 }
 
-//вынес все операции по подготовке формы перед открытием в одну функцию
 function resetForm(popup) {
   resetFormInputs(popup);
   resetInputsErrors(popup);
   disableButton(popup.querySelector(validationConfig.submitButtonSelector), validationConfig);
 }
 
-//Согласен с тем, что расставлять preventDefault() всем кнопкам в ручную было не лучшей идеей, но, по правде, я просто забыл это убрать. Как и было сказанно выше, эта функция позволяет убрать эффект focus при обычном нажатии на кнопку. Попробуйте, например, нажать на кнопку закрытия попапа, она выделится рамкой.
-// document.querySelectorAll('button').forEach(button => {
-//   button.addEventListener('mousedown', evt => evt.preventDefault());
-// })
+document.querySelectorAll('button').forEach(button => {
+  button.addEventListener('mousedown', evt => evt.preventDefault());
+})
 
 editButton.addEventListener('click', () => {
   resetForm(popupEditProfile);
