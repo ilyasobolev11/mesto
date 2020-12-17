@@ -22,8 +22,6 @@ const imgLinkInput = createCardForm.querySelector('.popup__input_type_img-link')
 
 const popupZoomImg = document.querySelector('.popup_type_zoom-img');
 const zoomImgCloseButton = popupZoomImg.querySelector('.popup__close-btn');
-const imgElement = popupZoomImg.querySelector('.popup__img');
-const impCaptionElement = popupZoomImg.querySelector('.popup__img-caption');
 
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.elements__item');
 
@@ -45,7 +43,6 @@ function showPopup(popupType) {
   popupType.classList.add('popup_opened');
   document.addEventListener('keydown', handleEscPress);
 }
-
 
 function resetFormInputs(popup) {
   popup.querySelector('.popup__form').reset();
@@ -73,50 +70,18 @@ function fillEditProfilePopup () {
   statusInput.value = userStatusElement.textContent;
 }
 
-function fillZoomImgPopup(name, imgLink) {
-  imgElement.src = imgLink;
-  imgElement.alt = `Фото - ${name}`;
-  impCaptionElement.textContent = name;
-}
-
-function toggleLikeButtonStatus (evt) {
-  evt.target.classList.toggle('elements__like-btn_active');
-}
-
 function addCardInContainer (cardElement) {
   elementsList.prepend(cardElement);
   checkElementListContent();
 }
 
-function removeCardElement (evt) {
-  evt.target.closest('.elements__item').remove();
-  checkElementListContent();
-}
-
-function createCard (name, imgLink) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardTitleElement = cardElement.querySelector('.elements__item-title');
-  const cardImageElement = cardElement.querySelector('.elements__item-img');
-  const deleteButton = cardElement.querySelector('.elements__delete-btn');
-  const likeButton = cardElement.querySelector('.elements__like-btn');
-
-  cardTitleElement.textContent = name;
-  cardImageElement.src = imgLink;
-  cardImageElement.alt = `Фото - ${name}`;
-
-  deleteButton.addEventListener('click', removeCardElement);
-  likeButton.addEventListener('mousedown', evt => evt.preventDefault());
-  likeButton.addEventListener('click', toggleLikeButtonStatus);
-  cardImageElement.addEventListener('click', () => {
-    fillZoomImgPopup(name, imgLink);
-    showPopup(popupZoomImg);
-  });
-
-  return cardElement;
+function renderCard(cardData) {
+  const card= new Card(cardData, '#card-template', checkElementListContent, showPopup, popupZoomImg);
+  addCardInContainer(card.generateCardElement());
 }
 
 function renderInitialCards () {
-  initialCards.forEach(item => addCardInContainer(createCard(item.name, item.link)));
+  initialCards.forEach(item => renderCard(item));
 }
 
 function submitEditProfileForm (evt) {
@@ -128,7 +93,10 @@ function submitEditProfileForm (evt) {
 
 function submitCreateCardForm (evt) {
   evt.preventDefault();
-  addCardInContainer(createCard(placeNameInput.value, imgLinkInput.value));
+  renderCard({
+    name: placeNameInput.value,
+    link: imgLinkInput.value
+  });
   closePopup(popupCreateCard);
 }
 
