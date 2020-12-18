@@ -1,10 +1,6 @@
-const validationConfig= {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  inputErrorClass: 'popup__input_type_error',
-  submitButtonSelector: '.popup__submit-btn',
-  disabledButtonClass: 'popup__submit-btn_disabled'
-};
+import {validationConfig, initialCards} from './data.js';
+import FormValidator from './FormValidator.js';
+import Card from './Card.js';
 
 const profile = document.querySelector('.profile');
 const editButton = profile.querySelector('.profile__edit-btn');
@@ -30,8 +26,6 @@ const imgLinkInput = createCardForm.querySelector('.popup__input_type_img-link')
 
 const popupZoomImg = document.querySelector('.popup_type_zoom-img');
 const zoomImgCloseButton = popupZoomImg.querySelector('.popup__close-btn');
-
-const cardTemplate = document.querySelector('#card-template').content.querySelector('.elements__item');
 
 const editProfileFormValidation = new FormValidator(validationConfig, editProfileForm);
 editProfileFormValidation.enableValidation();
@@ -89,7 +83,7 @@ function addCardInContainer (cardElement) {
 }
 
 function renderCard(cardData) {
-  const card= new Card(cardData, '#card-template', checkElementListContent, showPopup, popupZoomImg);
+  const card = new Card(cardData, '#card-template', checkElementListContent, showPopup, popupZoomImg);
   addCardInContainer(card.generateCardElement());
 }
 
