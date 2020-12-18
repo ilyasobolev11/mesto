@@ -1,3 +1,11 @@
+const validationConfig= {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  inputErrorClass: 'popup__input_type_error',
+  submitButtonSelector: '.popup__submit-btn',
+  disabledButtonClass: 'popup__submit-btn_disabled'
+};
+
 const profile = document.querySelector('.profile');
 const editButton = profile.querySelector('.profile__edit-btn');
 const userNameElement = profile.querySelector('.profile__user-name');
@@ -24,6 +32,11 @@ const popupZoomImg = document.querySelector('.popup_type_zoom-img');
 const zoomImgCloseButton = popupZoomImg.querySelector('.popup__close-btn');
 
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.elements__item');
+
+const editProfileFormValidation = new FormValidator(validationConfig, editProfileForm);
+editProfileFormValidation.enableValidation();
+const createCardFormValidation = new FormValidator(validationConfig, createCardForm);
+createCardFormValidation.enableValidation();
 
 function toggleDisplayTextNotification () {
   textNotificationElement.classList.toggle('elements__text-notification_hidden');
@@ -100,24 +113,20 @@ function submitCreateCardForm (evt) {
   closePopup(popupCreateCard);
 }
 
-function resetForm(popup) {
-  resetFormInputs(popup);
-  resetInputsErrors(popup);
-  disableButton(popup.querySelector(validationConfig.submitButtonSelector), validationConfig);
-}
-
 document.querySelectorAll('button').forEach(button => {
   button.addEventListener('mousedown', evt => evt.preventDefault());
-})
+});
 
 editButton.addEventListener('click', () => {
-  resetForm(popupEditProfile);
+  resetFormInputs(popupEditProfile);
+  editProfileFormValidation.resetValidation();
   fillEditProfilePopup();
   showPopup(popupEditProfile);
 });
 
 addButton.addEventListener('click', () => {
-  resetForm(popupCreateCard);
+  resetFormInputs(popupCreateCard);
+  createCardFormValidation.resetValidation();
   showPopup(popupCreateCard);
 });
 
@@ -133,7 +142,7 @@ zoomImgCloseButton.addEventListener('click', () => closePopup(popupZoomImg));
 
 document.querySelectorAll('.popup').forEach(popup => {
   popup.addEventListener('mousedown', handlePopupOverlayClick);
-})
+});
 
 editProfileForm.addEventListener('submit', submitEditProfileForm);
 

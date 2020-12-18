@@ -18,7 +18,7 @@ class Card {
 
   _removeCardElement() {
     this._cardElement.remove();
-    this._cardElement = null; //зачем чистить?
+    this._cardElement = null; //видел, что некоторые ревьюеры рекомендовали чистить это свойство после удаления из DOM. зачем это делать?
     this._checkElementListContent();
   }
 
