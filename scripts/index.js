@@ -1,4 +1,4 @@
-import {validationConfig, initialCards} from './data.js';
+import {initialCards, validationConfig} from './data.js';
 import FormValidator from './FormValidator.js';
 import Card from './Card.js';
 
@@ -10,7 +10,6 @@ const addButton = profile.querySelector('.profile__add-btn');
 
 const textNotificationElement = document.querySelector('.elements__text-notification');
 const elementsList = document.querySelector('.elements__list');
-let elementsListWasEmpty = true;
 
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const editProfileCloseButton = popupEditProfile.querySelector('.popup__close-btn');
@@ -26,6 +25,8 @@ const imgLinkInput = createCardForm.querySelector('.popup__input_type_img-link')
 
 const popupZoomImg = document.querySelector('.popup_type_zoom-img');
 const zoomImgCloseButton = popupZoomImg.querySelector('.popup__close-btn');
+const imgElement = popupZoomImg.querySelector('.popup__img');
+const imgCaptionElement = popupZoomImg.querySelector('.popup__img-caption');
 
 const editProfileFormValidation = new FormValidator(validationConfig, editProfileForm);
 editProfileFormValidation.enableValidation();
@@ -36,15 +37,19 @@ function toggleDisplayTextNotification () {
   textNotificationElement.classList.toggle('elements__text-notification_hidden');
 }
 
-function checkElementListContent() {
-  if (elementsList.hasChildNodes() && elementsListWasEmpty){
-    toggleDisplayTextNotification();
-    elementsListWasEmpty = false;
-  } else if (!elementsList.hasChildNodes()) {
-    toggleDisplayTextNotification();
-    elementsListWasEmpty = true;
+//убрал переменную elementsListWasEmpty из глобальной области видимости
+const checkElementListContent = (function () {
+  let elementsListWasEmpty = true;
+  return function () {
+    if (elementsList.hasChildNodes() && elementsListWasEmpty){
+      toggleDisplayTextNotification();
+      elementsListWasEmpty = false;
+    } else if (!elementsList.hasChildNodes()) {
+      toggleDisplayTextNotification();
+      elementsListWasEmpty = true;
+    }
   }
-}
+})();
 
 function showPopup(popupType) {
   popupType.classList.add('popup_opened');
@@ -77,13 +82,21 @@ function fillEditProfilePopup () {
   statusInput.value = userStatusElement.textContent;
 }
 
+function openPopupZoomImgHandler(name, link) {
+  imgElement.src = link;
+  imgElement.alt = `Фото - ${name}`;
+  imgCaptionElement.textContent = name;
+
+  showPopup(popupZoomImg);
+}
+
 function addCardInContainer (cardElement) {
   elementsList.prepend(cardElement);
   checkElementListContent();
 }
 
 function renderCard(cardData) {
-  const card = new Card(cardData, '#card-template', checkElementListContent, showPopup, popupZoomImg);
+  const card = new Card(cardData, '#card-template', checkElementListContent, openPopupZoomImgHandler);
   addCardInContainer(card.generateCardElement());
 }
 
