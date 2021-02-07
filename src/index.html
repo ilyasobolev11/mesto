@@ -62,11 +62,11 @@
         <h2 class="popup__title">Новое место</h2>
         <form class="popup__form" name="createCardForm" novalidate>
           <label class="popup__field">
-            <input class="popup__input popup__input_type_place-name" id="placeName-input" name="placeName" type="text" placeholder="Название" minlength="2" maxlength="30" required>
+            <input class="popup__input popup__input_type_place-name" id="placeName-input" name="name" type="text" placeholder="Название" minlength="2" maxlength="30" required>
             <span class="popup__input-error" id="placeName-input-error"></span>
           </label>
           <label class="popup__field">
-            <input class="popup__input popup__input_type_img-link" id="imgLink-input" name="imgLink" type="url" placeholder="Ссылка на картинку" required>
+            <input class="popup__input popup__input_type_img-link" id="imgLink-input" name="link" type="url" placeholder="Ссылка на картинку" required>
             <span class="popup__input-error" id="imgLink-input-error"></span>
           </label>
           <button class="popup__submit-btn" type="submit">Создать</button>
@@ -97,6 +97,6 @@
     </template>
   </div>
 
-  <script type="module" src="./scripts/index.js"></script>
+  <script type="module" src="./pages/index.js"></script>
 </body>
 </html>

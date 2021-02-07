@@ -1,7 +1,7 @@
 export default class Card {
-  constructor(data, templateSelector, checkElementListContent, openPopupZoomImgHandler) {
-    this._name = data.name;
-    this._link = data.link;
+  constructor({name, link}, templateSelector, checkElementListContent, openPopupZoomImgHandler) {
+    this._name = name;
+    this._link = link;
     this._templateSelector = templateSelector;
     this._checkElementListContent = checkElementListContent;
     this._cardImgClickHandler = openPopupZoomImgHandler;
@@ -29,7 +29,7 @@ export default class Card {
     this._likeButton.addEventListener('click', this._toggleLikeButtonStatus);
     this._likeButton.addEventListener('mousedown', evt => evt.preventDefault());
     this._imgElement.addEventListener('click', () => {
-      this._cardImgClickHandler(this._name, this._link);
+      this._cardImgClickHandler(this._link, this._name);
     });
     this._deleteButton.addEventListener('click', () => {
       this._removeCardElement();

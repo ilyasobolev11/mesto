@@ -1,3 +1,21 @@
+const selectorObj = {
+    editButtonSelector: '.profile__edit-btn',
+    addButtonSelector: '.profile__add-btn',
+    userNameElementSelector: '.profile__user-name',
+    statusElementSelector: '.profile__user-status',
+    cardTemplateSelector: '#card-template',
+    containerSelector: '.elements__list',
+    textNotification: {
+      selector: '.elements__text-notification',
+      hiddenElementClass: 'elements__text-notification_hidden'
+    },
+    popupEditProfileSelector: '.popup_type_edit-profile',
+    editProfileFormSelector: '.popup_type_edit-profile .popup__form',
+    popupCreateCardSelector: '.popup_type_create-card',
+    createCardFormSelector: '.popup_type_create-card .popup__form',
+    popupZoomImgSelector: '.popup_type_zoom-img'
+  };
+
 const validationConfig= {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
@@ -33,4 +51,13 @@ const initialCards = [
   }
 ];
 
-export {validationConfig, initialCards};
+const editButton = document.querySelector(selectorObj.editButtonSelector);
+const addButton = document.querySelector(selectorObj.addButtonSelector);
+
+export {
+    selectorObj,
+    validationConfig,
+    initialCards,
+    editButton,
+    addButton
+};

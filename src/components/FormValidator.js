@@ -1,7 +1,7 @@
 export default class FormValidator {
-  constructor(validationConfig, formElement) {
+  constructor(validationConfig, formSelector) {
     this._config = validationConfig;
-    this._formElement = formElement;
+    this._formElement = document.querySelector(formSelector);
   }
 
   _enableButton() {
@@ -67,12 +67,12 @@ export default class FormValidator {
     });
   }
 
-  resetValidation() {
+  resetValidation = () => {
     this._inputList.forEach(inputElement => this._hideInputError(inputElement));
     this._toggleButtonState();
   }
 
-  enableValidation() {
+  enableValidation = () => {
     this._formElement.addEventListener('submit', evt => evt.preventDefault());
     this._setEventListeners();
   }
