@@ -24,6 +24,6 @@
 
 -----
 
-**GitHub Pages:** [Ссылка на страницу проекта](https://ilyasobolev11.github.io/mesto/index.html)
+**GitHub Pages:** [Ссылка на страницу проекта](https://ilyasobolev11.github.io/mesto/)
 
 **Figma:** [Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
