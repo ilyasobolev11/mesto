@@ -18,7 +18,9 @@ export default class Card {
   _removeCardElement() {
     this._cardElement.remove();
     this._cardElement = null;
-    this._checkElementListContent();
+    if (this._checkElementListContent) {
+      this._checkElementListContent();
+    }
   }
 
   _toggleLikeButtonStatus() {

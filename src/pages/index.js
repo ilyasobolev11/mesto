@@ -15,8 +15,6 @@ import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 
-//не избыточно ли для функции, проверки наличия элементов в контейнере и показа соответствующего сообщения, делать отдельный класс?
-//возможно проще было оставить эту функцию отдельно в index.js или разместить ее в классе Section?
 const elementListNotification = new ContainerNotification(selectorObj.textNotification, selectorObj.containerSelector);
 
 function renderCard(item) {
