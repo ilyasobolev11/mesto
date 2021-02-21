@@ -23,17 +23,11 @@ function handleError(err) {
   console.log(err);
 }
 
-const elementListNotification = new ContainerStatusNotification(
-  selectorObj.textNotification,
-  selectorObj.loagingSpinner,
-  selectorObj.containerSelector
-);
-
 function renderCard(item) {
   const card = new Card(
     item,
     selectorObj.cardTemplateSelector,
-    userInfo.getUserId,
+    userInfo.userId,
     popupZoomImg.open,
     popupConfirmDeleteCard.open,
     putLike,
@@ -43,54 +37,106 @@ function renderCard(item) {
   return card.generateCardElement();
 }
 
-function submitCard() {
-  api.sendNewCard(this.inputValues, '/cards ') // что делать с приватными полями в колбэках? (я их, на всякий, сделал публичными)
+function submitCard(inputValues) {
+  api.sendNewCard(inputValues, '/cards ')
     .then((cardData) => {
       cardList.addItem(renderCard(cardData));
     })
     .catch(handleError)
     .finally(() => {
-      this.close();
-      this.submitButton.textContent = this.submitButtonText.ready;
+      popupCreateCard.close();
+      popupCreateCard.submitButton.textContent = popupCreateCard.submitButtonText.ready;
     });
 }
 
 function deleteCard() {
-  api.deleteCard(`/cards/${this.currentCard.id}`)
+  api.deleteCard(`/cards/${popupConfirmDeleteCard.currentCard.id}`)
     .then((res) => {
       console.log(res.message);
-      this.currentCard.cardElement.remove();
-      delete this.currentCard;
-      // Как логичнее организовать удаление?
-      // Здесь я всего лишь удалил свойство currentCard, содержащее ссылку на объект,
-      // а как избавиться от самого объекта, на котором строилась удаленная карточка?
-      // Или этим займется сборщик мусора?
+      popupConfirmDeleteCard.currentCard.cardElement.remove();
+
       elementListNotification.check();
     })
     .catch(handleError)
     .finally(() => {
-      this.close();
-      this.submitButton.textContent = this.submitButtonText.ready;
+      popupConfirmDeleteCard.close();
+      popupConfirmDeleteCard.submitButton.textContent = popupConfirmDeleteCard.submitButtonText.ready;
     });
 }
 
-function putLike() {
-  api.putLike(`/cards/likes/${this.id}`)
+function putLike(card) {
+  api.putLike(`/cards/likes/${card.id}`)
     .then(({likes}) => {
-      this.likes = likes;
-      this.updateLikesCount();
+      card.likes = likes;
+      card.updateLikesCount();
     })
-    .catch(handleError);
+    .catch((err) => {
+      handleError(err);
+      card.toggleLikeBtnState();
+      //card.updateLikesCount();
+    });
 }
 
-function removeLike() {
-  api.removeLike(`/cards/likes/${this.id}`)
+function removeLike(card) {
+  api.removeLike(`/cards/likes/${card.id}`)
     .then(({likes}) => {
-      this.likes = likes;
-      this.updateLikesCount();
+      card.likes = likes;
+      card.updateLikesCount();
     })
-    .catch(handleError);
+    .catch((err) => {
+      handleError(err);
+      card.toggleLikeBtnState();
+      //card.updateLikesCount();
+    });
 }
+
+function submitAvatar(inputValues) {
+  api.updateAvatar(inputValues, '/users/me/avatar')
+    .then((userData) => {
+      userInfo.setUserInfo(userData);
+    })
+    .catch(handleError)
+    .finally(() => {
+      popupEditAvatar.close();
+      popupEditAvatar.submitButton.textContent = popupEditAvatar.submitButtonText.ready;
+    });
+}
+
+function submitUserData(inputValues) {
+  api.updateUserData(inputValues, '/users/me')
+    .then((userData) => {
+      userInfo.setUserInfo(userData);
+    })
+    .catch(handleError)
+    .finally(() => {
+      popupEditProfile.close();
+      popupEditProfile.submitButton.textContent = popupEditProfile.submitButtonText.ready;
+    });
+}
+
+function renderInitialData() {
+  // Спасибо за объяснения. Одно не понял, из комментария относящихся к этому блоку. Зачем делать цепочку из 2-х then, если это
+  // все-равно синхронные операции, и, указав их порядок, они выполнятся друг за другом (как в коде ниже).
+
+  Promise.all([
+    api.getUserData('/users/me'),
+    api.getInitialCards('/cards')
+  ])
+    .then(([userData, initialCards]) => {
+      userInfo.setUserInfo(userData);
+      elementListNotification.toggleLoadingSpinnerVisibility();
+      cardList.renderItems(initialCards);
+    })
+    .catch((err) => console.log(err));
+}
+
+const api = new Api(apiConfig);
+
+const elementListNotification = new ContainerStatusNotification(
+  selectorObj.textNotification,
+  selectorObj.loagingSpinner,
+  selectorObj.containerSelector
+);
 
 const cardList = new Section(
   {
@@ -163,63 +209,6 @@ addButton.addEventListener('click', () => {
   popupCreateCard.open();
 });
 
-const api = new Api(apiConfig);
-
-function submitAvatar() {
-  api.updateAvatar(this.inputValues, '/users/me/avatar')
-    .then((userData) => {
-      userInfo.setUserInfo(userData);
-    })
-    .catch(handleError)
-    .finally(() => {
-      this.close();
-      this.submitButton.textContent = this.submitButtonText.ready;
-    });
-}
-
-function submitUserData() {
-  api.updateUserData(this.inputValues, '/users/me')
-    .then((userData) => {
-      userInfo.setUserInfo(userData);
-    })
-    .catch(handleError)
-    .finally(() => {
-      this.close();
-      this.submitButton.textContent = this.submitButtonText.ready;
-    });
-}
-
-function renderInitialData() {
-  // Упала читаемость, но так не надо ждать распаковки res от api.getInitialCards + если запрос провалится,
-  // то api.getUserData все-равно выполнится, а вот в обратную сломаются оба. Я не знаю как дать обоим независимость
-  // - так что-бы один не ждал другого, запросы и распаковка обоих выполнялись параллельно, но при этом, метод обработки готовых
-  // данных происходил по очереди - сначала userInfo.setUserInfo, а потом cardList.renderItems...
-
-  Promise.all([
-    api.getInitialCards('/cards'),
-    api.getUserData('/users/me')
-      .then((userData) => {
-        userInfo.setUserInfo(userData);
-      })
-  ])
-  .then(([initialCards]) => {
-    elementListNotification.toggleLoadingSpinnerVisibility();
-    cardList.renderItems(initialCards);
-  })
-  .catch(handleError);
-
-  // Promise.all([
-  //   api.getUserData('/users/me'),
-  //   api.getInitialCards('/cards')
-  // ])
-  //   .then(([userData, initialCards]) => {
-  //     userInfo.setUserInfo(userData);
-  //     elementListNotification.toggleLoadingSpinnerVisibility();
-  //     cardList.renderItems(initialCards);
-  //   })
-  //   .catch((err) => console.log(err));
-}
-
 renderInitialData();
 
 // function updateCardList() {
@@ -232,5 +221,4 @@ renderInitialData();
 //     .catch((err) => console.log(err));
 // }
 
-// не забанят?
 // setInterval(updateCardList, 30000);

@@ -11,12 +11,15 @@ export default class PopupWithForm extends Popup {
     this._resetValidation = resetValidation;
     this._getInitialValues = getInitialValues;
 
-    this._setEventListeners(); // корректно ли вызывать функцию здесь?
+    this._setEventListeners();
   }
 
   _getInputValues() {
-    this.inputValues = {};
-    this._inputList.forEach(input => this.inputValues[input.name] = input.value);
+    if (this._inputList) {
+      this._inputValues = {};
+      this._inputList.forEach(input => this._inputValues[input.name] = input.value);
+      return this._inputValues;
+    }
   }
 
   _setInputValues() {
@@ -30,10 +33,7 @@ export default class PopupWithForm extends Popup {
       if (this.submitButtonText) {
         this.submitButton.textContent = this.submitButtonText.submitProcess;
       }
-      if (this._inputList) {
-        this._getInputValues();
-      }
-      this._submitHandler();
+      this._submitHandler(this._getInputValues());
     });
   }
 
