@@ -16,7 +16,9 @@
     <main class="content root__content">
       <section class="profile content__profile">
         <div class="profile__user-data">
-          <img src="<%=require('./images/avatar.jpg')%>" alt="аватар пользователя" class="profile__avatar">
+          <div class="profile__cover" tabindex="0">
+            <img src="<%=require('./images/avatar.jpg')%>" alt="аватар пользователя" class="profile__avatar">
+          </div>
           <div class="profile__column">
             <div class="profile__row">
               <h1 class="profile__user-name">Жак-Ив Кусто</h1>
@@ -29,6 +31,9 @@
       </section>
 
       <section class="elements">
+        <div class="elements__spinner">
+          <span></span>
+        </div>
         <p class="elements__text-notification">Нет добавленных мест</p>
         <ul class="elements__list"></ul>
       </section>
@@ -37,6 +42,20 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
+
+    <div class="popup popup_type_edit-avatar">
+      <div class="popup__form-container">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form" name="editAvatar" novalidate>
+          <label class="popup__field">
+            <input class="popup__input popup__input_type_avatar-link" id="avatarLink-input" name="avatar" type="url" placeholder="Ссылка на картинку" required>
+            <span class="popup__input-error" id="avatarLink-input-error"></span>
+          </label>
+          <button class="popup__submit-btn" type="submit">Сохранить</button>
+        </form>
+        <button class="popup__close-btn" type="button" aria-label="Закрыть окно редактирования аватара пользователя"></button>
+      </div>
+    </div>
 
     <div class="popup popup_type_edit-profile">
       <div class="popup__form-container">
@@ -74,6 +93,16 @@
       </div>
     </div>
 
+    <div class="popup popup_type_confirm-delete-card">
+      <div class="popup__form-container">
+        <h2 class="popup__title popup__title_dialogue-message">Вы уверены?</h2>
+        <form class="popup__form" name="confirmDeleteCard">
+          <button class="popup__submit-btn" type="submit">Да</button>
+        </form>
+        <button class="popup__close-btn" type="button" aria-label="Закрыть окно подтверждения удаления места"></button>
+      </div>
+    </div>
+
     <div class="popup popup_type_zoom-img">
       <div class="popup__img-container">
         <img class="popup__img" src="#" alt="#">
@@ -89,7 +118,10 @@
           <img class="elements__item-img" src="#" alt="#">
           <div class="elements__row">
             <h2 class="elements__item-title"></h2>
-            <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
+            <div class="elements__column">
+              <button class="elements__like-btn" type="button" aria-label="Нравится"></button>
+              <span class="elements__likes-count"></span>
+            </div>
           </div>
         </article>
       </li>

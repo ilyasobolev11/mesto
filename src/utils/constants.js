@@ -3,16 +3,25 @@ const selectorObj = {
     addButtonSelector: '.profile__add-btn',
     userNameElementSelector: '.profile__user-name',
     statusElementSelector: '.profile__user-status',
+    avatarContainerElementSelector: '.profile__cover',
+    avatarElementSelector: '.profile__avatar',
     cardTemplateSelector: '#card-template',
     containerSelector: '.elements__list',
+    loagingSpinner: {
+      selector: '.elements__spinner',
+      visibleElementClass: 'elements__spinner_hidden'
+    },
     textNotification: {
       selector: '.elements__text-notification',
-      hiddenElementClass: 'elements__text-notification_hidden'
+      visibleElementClass: 'elements__text-notification_visible'
     },
+    popupEditAvatarSelector: '.popup_type_edit-avatar',
+    editAvatarFormSelector: '.popup_type_edit-avatar .popup__form',
     popupEditProfileSelector: '.popup_type_edit-profile',
     editProfileFormSelector: '.popup_type_edit-profile .popup__form',
     popupCreateCardSelector: '.popup_type_create-card',
     createCardFormSelector: '.popup_type_create-card .popup__form',
+    popupConfirmDeleteCard: '.popup_type_confirm-delete-card',
     popupZoomImgSelector: '.popup_type_zoom-img'
   };
 
@@ -24,40 +33,44 @@ const validationConfig= {
     disabledButtonClass: 'popup__submit-btn_disabled'
   };
 
-const initialCards = [
-  {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+const submitButtonTextConfig = {
+  popupEditAvatar: {
+    default: 'Сохранить',
+    submitProcess: 'Сохранение...',
+    ready: 'Готово'
   },
-  {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  popupEditProfile: {
+    default: 'Сохранить',
+    submitProcess: 'Сохранение...',
+    ready: 'Готово'
   },
-  {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  popupCreateCard: {
+    default: 'Создать',
+    submitProcess: 'Создание...',
+    ready: 'Готово'
   },
-  {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  popupConfirmDeleteCard: {
+    default: 'Да',
+    submitProcess: 'Удаление...',
+    ready: 'Готово'
   }
-];
+}
+
+const apiConfig = {
+  url: 'https://mesto.nomoreparties.co/v1/cohort-20',
+  token: {authorization: '614d3213-6f90-4cae-80f4-7341542ff306'}
+}
 
 const editButton = document.querySelector(selectorObj.editButtonSelector);
 const addButton = document.querySelector(selectorObj.addButtonSelector);
+const avatarElement = document.querySelector(selectorObj.avatarContainerElementSelector);
 
 export {
     selectorObj,
     validationConfig,
-    initialCards,
+    submitButtonTextConfig,
+    apiConfig,
+    avatarElement,
     editButton,
     addButton
 };

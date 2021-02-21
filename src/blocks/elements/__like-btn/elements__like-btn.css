@@ -1,10 +1,11 @@
 .elements__like-btn {
-  min-width: 20px;
-  height: 18px;
+  min-width: 22px;
+  height: 19px;
+  margin-bottom: 2px;
   padding: 0;
   background-color: transparent;
   background-image: url(../../../images/like-icon.svg);
-  background-size: 20px 18px;
+  background-size: 22px 19px;
   background-position: center;
   background-repeat: no-repeat;
   border: none;

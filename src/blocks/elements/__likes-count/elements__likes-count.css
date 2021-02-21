@@ -1,0 +1,9 @@
+.elements__likes-count {
+  max-width: 24px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.2;
+  color: #000;
+  overflow: hidden;
+  text-overflow: clip;
+}

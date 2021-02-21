@@ -1,0 +1,23 @@
+.elements__spinner {
+  position: relative;
+  margin: 0 auto;
+  padding: 50px 0;
+  width: 100px;
+  height: 100px;
+}
+.elements__spinner span::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100px;
+  height: 100px;
+  clip: rect(0, 50px, 100px, 0);
+  box-shadow: inset 0 0 0 8px #fff;
+  border-radius: 50%;
+  animation: spinner-circle .7s linear infinite;
+}
+
+@keyframes spinner-circle {
+  0% { transform: rotate(-180deg); }
+  100% { transform: rotate(180deg); }
+}

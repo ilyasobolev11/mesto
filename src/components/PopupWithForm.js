@@ -1,45 +1,61 @@
 import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, submit, resetValidation, getInitialValues) {
+  constructor(popupSelector, submit, submitBtnTextConfig, resetValidation, getInitialValues) {
     super(popupSelector);
     this._form = this.popup.querySelector('.popup__form');
     this._inputList = this._form.querySelectorAll('.popup__input');
+    this.submitButton = this._form.querySelector('.popup__submit-btn');
+    this.submitButtonText = submitBtnTextConfig;
     this._submitHandler = submit;
     this._resetValidation = resetValidation;
     this._getInitialValues = getInitialValues;
+
+    this._setEventListeners(); // корректно ли вызывать функцию здесь?
   }
 
   _getInputValues() {
-    this._inputValues = {};
-    this._inputList.forEach(input => this._inputValues[input.name] = input.value);
-    return this._inputValues;
+    this.inputValues = {};
+    this._inputList.forEach(input => this.inputValues[input.name] = input.value);
   }
 
   _setInputValues() {
     this._inputList.forEach(input => input.value = this._initialValues[input.name]);
   }
 
-  setEventListeners() {
+  _setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener('submit', evt => {
       evt.preventDefault();
-      this._submitHandler(this._getInputValues())
-      this.close();
+      if (this.submitButtonText) {
+        this.submitButton.textContent = this.submitButtonText.submitProcess;
+      }
+      if (this._inputList) {
+        this._getInputValues();
+      }
+      this._submitHandler();
     });
   }
 
-  open() {
+  open(currentCard) {
     super.open();
+    if (this._resetValidation) {
+      this._resetValidation();
+    }
+    if (this.submitButtonText) {
+      this.submitButton.textContent = this.submitButtonText.default;
+    }
     if (this._getInitialValues) {
       this._initialValues = this._getInitialValues();
       this._setInputValues();
+    }
+    if (currentCard) {
+      this.currentCard = currentCard;
     }
   }
 
   close() {
     super.close();
     this._form.reset();
-    this._resetValidation();
   }
 }

@@ -11,6 +11,7 @@
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__user-data/profile__user-data.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__cover/profile__cover.css);
 @import url(../blocks/profile/__column/profile__column.css);
 @import url(../blocks/profile/__row/profile__row.css);
 @import url(../blocks/profile/__user-name/profile__user-name.css);
@@ -18,16 +19,20 @@
 @import url(../blocks/profile/__user-status/profile__user-status.css);
 @import url(../blocks/profile/__add-btn/profile__add-btn.css);
 @import url(../blocks/elements/elements.css);
+@import url(../blocks/elements/__spinner/elements__spinner.css);
+@import url(../blocks/elements/__spinner/_hidden/elements__spinner_hidden.css);
 @import url(../blocks/elements/__text-notification/elements__text-notification.css);
-@import url(../blocks/elements/__text-notification/_hidden/elements__text-notification_hidden.css);
+@import url(../blocks/elements/__text-notification/_visible/elements__text-notification_visible.css);
 @import url(../blocks/elements/__list/elements__list.css);
 @import url(../blocks/elements/__item/elements__item.css);
 @import url(../blocks/elements/__delete-btn/elements__delete-btn.css);
 @import url(../blocks/elements/__item-img/elements__item-img.css);
 @import url(../blocks/elements/__row/elements__row.css);
 @import url(../blocks/elements/__item-title/elements__item-title.css);
+@import url(../blocks/elements/__column/elements__column.css);
 @import url(../blocks/elements/__like-btn/elements__like-btn.css);
 @import url(../blocks/elements/__like-btn/_active/elements__like-btn_active.css);
+@import url(../blocks/elements/__likes-count/elements__likes-count.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/popup/popup.css);
@@ -37,6 +42,7 @@
 @import url(../blocks/popup/__img/popup__img.css);
 @import url(../blocks/popup/__img-caption/popup__img-caption.css);
 @import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__title/_dialogue-message/popup__title_dialogue-message.css);
 @import url(../blocks/popup/__field/popup__field.css);
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_error.css);

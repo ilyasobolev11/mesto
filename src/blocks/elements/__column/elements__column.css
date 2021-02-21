@@ -1,6 +1,6 @@
-.elements__row {
-  padding: 0 15px 21px 21px;
+.elements__column {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
