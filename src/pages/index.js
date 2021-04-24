@@ -67,7 +67,7 @@ function deleteCard() {
 function putLike(card) {
   api.putLike(`/cards/likes/${card.id}`)
     .then(({likes}) => {
-      card.likes = likes;
+      card.likes = likes;//TODO: мб передать в метод ниже и там установить?
       card.updateLikesCount();
     })
     .catch((err) => {
@@ -97,7 +97,7 @@ function submitAvatar(inputValues) {
     })
     .catch(handleError)
     .finally(() => {
-      popupEditAvatar.close();
+      popupEditAvatar.close();//TODO: при ошибке не должен закрывать
       popupEditAvatar.submitButton.textContent = popupEditAvatar.submitButtonText.ready;
     });
 }
@@ -115,9 +115,6 @@ function submitUserData(inputValues) {
 }
 
 function renderInitialData() {
-  // Спасибо за объяснения. Одно не понял, из комментария относящихся к этому блоку. Зачем делать цепочку из 2-х then, если это
-  // все-равно синхронные операции, и, указав их порядок, они выполнятся друг за другом (как в коде ниже).
-
   Promise.all([
     api.getUserData('/users/me'),
     api.getInitialCards('/cards')

@@ -26,7 +26,7 @@ export default class PopupWithForm extends Popup {
     this._inputList.forEach(input => input.value = this._initialValues[input.name]);
   }
 
-  _setEventListeners() {
+  _setEventListeners() { // TODO: сообщение об ошибке сохраниния на кнопке
     super.setEventListeners();
     this._form.addEventListener('submit', evt => {
       evt.preventDefault();

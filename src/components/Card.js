@@ -35,7 +35,6 @@ export default class Card {
     this._likeButton.classList.toggle('elements__like-btn_active');
   }
 
-  //как тут быть? реализовать по приципу "оптимистичный UI", или дожидаться ответа от сервера и только потом проставлять кол. лайков?
   likeBtnClickHandler() {
     this.toggleLikeBtnState();
     if (this._likeButton.classList.contains('elements__like-btn_active')) {
